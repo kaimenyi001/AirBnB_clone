@@ -13,8 +13,8 @@ class TestReview(unittest.TestCase):
     """This is a Test Review class implementation"""
     def test_doc_module(self):
         """This a Module documentation"""
-        doc = Review._doc_
-        self.assertGreater(len(doc), 1)
+        my_doc = Review.__doc__
+        self.assertGreater(len(my_doc), 1)
 
     def test_pep8_conformance_review(self):
         """This Tests that models/review.py conforms to PEP8."""
@@ -32,7 +32,7 @@ class TestReview(unittest.TestCase):
 
     def test_doc_constructor(self):
         """Constructor documentation"""
-        my_doc = Review._init.doc_
+        my_doc = Review.__init__.__doc__
         self.assertGreater(len(my_doc), 1)
 
     def test_class(self):

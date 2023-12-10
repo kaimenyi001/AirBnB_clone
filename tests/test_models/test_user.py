@@ -13,7 +13,7 @@ class TestUser(unittest.TestCase):
     """It Tests User class implementation"""
     def test_doc_module(self):
         """Module documentation"""
-        my_doc = User._doc_
+        my_doc = User.__doc__
         self.assertGreater(len(my_doc), 1)
 
     def test_pep8_conformance_base_model(self):
@@ -32,8 +32,8 @@ class TestUser(unittest.TestCase):
 
     def test_doc_constructor(self):
         """This is a Constructor documentation"""
-        doc = User._init.doc_
-        self.assertGreater(len(doc), 1)
+        my_doc = User.__init__.__doc__
+        self.assertGreater(len(my_doc), 1)
 
     def test_class(self):
         """It Validates the types of the attributes in a class"""
@@ -41,8 +41,8 @@ class TestUser(unittest.TestCase):
             self.assertTrue(issubclass(User, BaseModel))
 
         with self.subTest(msg='Attributes'):
-            self.assertIsInstance(User.email, str)
-            self.assertIsInstance(User.password, str)
+            self.assertIsInstance(User.user_email, str)
+            self.assertIsInstance(User.user_password, str)
             self.assertIsInstance(User.first_name, str)
             self.assertIsInstance(User.last_name, str)
 

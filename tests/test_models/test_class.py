@@ -8,7 +8,7 @@ import pep8
 class TestClassDocumentation():
     """Class that allow us to test multiples classes"""
 
-    def _init_(self, tests, _class):
+    def __init__(self, tests, _class):
         """Constructor"""
         self.tests = tests
         self.name = _class
@@ -23,11 +23,11 @@ class TestClassDocumentation():
                 with self.tests.subTest(msg='Documentation method {}'
                                         .format(f[0])):
 
-                    doc = f[1]._doc_
-                    self.tests.assertGreaterEqual(len(doc), 1)
+                    my_doc = f[1].__doc__
+                    self.tests.assertGreaterEqual(len(my_doc), 1)
 
         with self.tests.subTest(msg='Testing class'):
-            my_doc = self.name._doc_
+            my_doc = self.name.__doc__
             self.tests.assertGreaterEqual(len(my_doc), 1)
 
     def pep8(self, files):

@@ -13,7 +13,7 @@ class TestState(unittest.TestCase):
     """Tests State class implementation"""
     def test_doc_module(self):
         """This is a Module documentation"""
-        my_doc = State._doc_
+        my_doc = State.__doc__
         self.assertGreater(len(my_doc), 1)
 
     def test_pep8_conformance_state(self):
@@ -32,8 +32,8 @@ class TestState(unittest.TestCase):
 
     def test_doc_constructor(self):
         """This is Constructor documentation"""
-        doc = State._init.doc_
-        self.assertGreater(len(doc), 1)
+        my_doc = State.__init__.__doc__
+        self.assertGreater(len(my_doc), 1)
 
     def test_class(self):
         """It Validates the types of the attributes in a class"""

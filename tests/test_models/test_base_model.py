@@ -88,7 +88,7 @@ class TestBaseModel(unittest.TestCase):
         }
         for key, value in model_types.items():
             with self.subTest(key=key, value=value):
-                self.assertIN(key, model_2.__dict__)
+                self.assertIn(key, model_2.__dict__)
                 self.assertIs(type(model_2.__dict__[key]), value)
 
     def test_uuid(self):

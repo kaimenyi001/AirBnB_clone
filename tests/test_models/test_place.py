@@ -13,7 +13,7 @@ class TestPlace(unittest.TestCase):
     """It Tests State class implementation"""
     def test_doc_module(self):
         """Module documentation"""
-        my_doc = Place._doc_
+        my_doc = Place.__doc__
         self.assertGreater(len(my_doc), 1)
 
     def test_pep8_conformance_place(self):
@@ -32,11 +32,12 @@ class TestPlace(unittest.TestCase):
 
     def test_doc_constructor(self):
         """This is a Constructor documentation"""
-        doc = Place._init.doc_
-        self.assertGreater(len(doc), 1)
+        my_doc = Place.__init__.__doc__
+        self.assertGreater(len(my_doc), 1)
 
     def test_class(self):
         """It Validates the types of the attributes an class"""
+
         with self.subTest(msg='Inheritance'):
             self.assertTrue(issubclass(Place, BaseModel))
 
