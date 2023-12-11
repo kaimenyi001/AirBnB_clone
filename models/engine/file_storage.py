@@ -12,7 +12,7 @@ from models.review import Review
 from models.state import State
 
 
-class File_Storage():
+class FileStorage:
     """File_Storage Class"""
     __file_path = "file.json"
     __objects = {}
@@ -22,7 +22,7 @@ class File_Storage():
         dictionary __objects
         """
 
-        return File_Storage.__objects
+        return FileStorage.__objects
 
     def new(self, my_obj):
         """
@@ -35,7 +35,7 @@ class File_Storage():
 
         if my_obj:
             key = "{}.{}".format(my_obj.__class__.__name__,  my_obj.id)
-            File_Storage.__objects[key] = my_obj
+            FileStorage.__objects[key] = my_obj
 
     def save(self):
         """
@@ -48,9 +48,9 @@ class File_Storage():
 
         newdict = {}
 
-        for key, value in File_Storage.__objects.items():
+        for key, value in FileStorage.__objects.items():
             newdict[key] = value.to_dict().copy()
-        with open(File_Storage.__file_path, mode='w') as my_file:
+        with open(FileStorage.__file_path, mode='w') as my_file:
             json.dump(newdict, my_file)
 
     def reload(self):
@@ -60,13 +60,13 @@ class File_Storage():
         """
 
         try:
-            with open(File_Storage.__file_path, mode='r') as my_file:
+            with open(FileStorage.__file_path, mode='r') as my_file:
                 newdict = json.load(my_file)
 
             for key, value in newdict.items():
                 class_name = value.get('__class__')
                 my_obj = eval(class_name + '(**value)')
-                File_Storage.__objects[key] = my_obj
+                FileStorage.__objects[key] = my_obj
 
         except FileNotFoundError:
             pass
