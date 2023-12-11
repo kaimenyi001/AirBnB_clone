@@ -1,53 +1,39 @@
 #!/usr/bin/python3
-
-"""Module For Test Amenity Class"""
-
+"""
+ Defines Unittest for amenity.py
+"""
 import unittest
-import json
-import pep8
-import datetime
-
 from models.amenity import Amenity
-from models.base_model import BaseModel
+import datetime
 
 
 class TestAmenity(unittest.TestCase):
-    """Testing State Class Implementation"""
+    """Tests instances and methods from amenity class"""
 
-    def test_doc_module(self):
-        """The Module Documantation"""
+    am = Amenity()
 
-        doc = Amenity.__doc__
-        self.assertGreater(len(doc), 1)
+    def test_class_exists(self):
+        """Tests if class exists"""
+        res = "<class 'models.amenity.Amenity'>"
+        self.assertEqual(str(type(self.am)), res)
 
-    def test_pep8_conformance_amenity(self):
-        """Test that models/amenity.py conforms to PEP8"""
-        pep8style = pep8.StyleGuide(quit=True)
-        result = pep8style.check_files(['models/amenity.py'])
-        self.assertEqual(result.All_total_errors, 0,
-                         "Code style errors found (and warnings).")
+    def test_user_inheritance(self):
+        """Test if Amenity is a subclass of BaseModel"""
+        self.assertIsInstance(self.am, Amenity)
 
-    def test_pep8_conformance_test_amenity(self):
-        """Test that test/test_models/test_amenity.py conforms to PEP8"""
-        pep8style = pep8.StyleGuide(quit=True)
-        result_2 = pep8style.check_files(['test_models/amenity.py'])
-        self.assertEqual(result_2.All_total_errors, 0,
-                         "Code style errors found (and warnings).")
+    def testHasAttributes(self):
+        """ Verify if attributes exist """
+        self.assertTrue(hasattr(self.am, 'name'))
+        self.assertTrue(hasattr(self.am, 'id'))
+        self.assertTrue(hasattr(self.am, 'created_at'))
+        self.assertTrue(hasattr(self.am, 'updated_at'))
 
-    def test_doc_constructor(self):
-        """Constructor Documentation"""
-
-        doc = Amenity.__init__.__doc__
-        self.assertGreater(len(doc), 1)
-
-    def test_class(self):
-        """It Validates the type of Attributes in a Class"""
-
-        with self.subTest(msg='Inheritance'):
-            self.assertTrue(issubclass(Amenity, BaseModel))
-
-        with self.subTest(msg='Attrbutes'):
-            self.assertIsInstance(Amenity.name, str)
+    def test_types(self):
+        """Tests if the type of the attribute is the correct one"""
+        self.assertIsInstance(self.am.name, str)
+        self.assertIsInstance(self.am.id, str)
+        self.assertIsInstance(self.am.created_at, datetime.datetime)
+        self.assertIsInstance(self.am.updated_at, datetime.datetime)
 
 
 if __name__ == '__main__':

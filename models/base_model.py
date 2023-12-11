@@ -1,49 +1,63 @@
-#!/usr/bin/python3
+#!/usr/bin/pyhon3
 """
-This is a module BaseModel
+Defines the BaseModel class
 """
-
 import uuid
-from datetime import datetime
 import models
+from datetime import datetime
 
 
-class BaseModel():
-    """The BaseModel Class"""
-
+class BaseModel:
+    """
+    Defines all common attributes/methods
+    """
     def __init__(self, *args, **kwargs):
-        """This is a class constructor for the BaseModel Class"""
-
-        if kwargs:
-            kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-
-            for key, value in kwargs.items():
-                if key != '__class__':
-                    setattr(self, key, value)
-        else:
+        """
+        Initializes all attributes
+        """
+        if not kwargs:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            models.storage.new(self)
+            self.updated_at = self.created_at
+            storage.new(self)
+        else:
+            tf = "%Y-%m-%dT%H:%M:%S.%f"
+            for key, val in kwargs.items():
+                if key == 'created_at' or key == 'updated_at':
+                    val = datetime.strptime(kwargs[key], tf)
+                if key != '__class__':
+                    setattr(self, key, val)
 
     def __str__(self):
-        """This is a string of BaseModel"""
-        return "[{}] [{}] {}".format(self.__class__.__name__,
-                                     self.id, self.__dict__)
+        """
+        Returns class name, id and attr dict
+        """
+        cls_nm = "[" + self.__class__.__name__ + "]"
+        dicts = {ke: va for (ke, va) in self.
+                 __dict__.items() if (not va) is False}
+        return cls_nm + " (" + self.id + ") " + str(dicts)
 
     def save(self):
-        """It updates 'updated_at' instance with the current datetime"""
+        """
+        Updates time
+        """
         self.updated_at = datetime.now()
-        models.storage.save()
+        storage.save()
 
     def to_dict(self):
-        """This is a dictionarry representation of an instance"""
-        newdict = dict(self.__dict__)
-        newdict["created_at"] = self.__dict__["created_at"].isoformat()
-        newdict["updated_at"] = self.__dict__["updated_at"].isoformat()
-        newdict["__class__"] = self.__class__.__name__
+        """
+        Return the dictionary of the BaseModel instance
+        """
+        n_dict = {}
 
-        return (newdict)
+        for key, vals in self.__dict__.items():
+            if key == "created_at" or key == "updated_at":
+                n_dict[key] = vals.strftime("%Y-%m-%dT%H:%M:%S.%f")
+            else:
+                if not vals:
+                    pass
+                else:
+                    n_dict[key] = vals
+        n_dict['__class__'] = self.__class__.__name__
+
+        return n_dict
