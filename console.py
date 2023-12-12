@@ -26,21 +26,20 @@ class HBNBCommand(cmd.Cmd):
         "User"
     ]
 
-    def do_create(self, args):
+    def do_create(self, cr):
         '''It Create a new instance of BaseModel, saves it and
             prints the id.
            Usage: create <class name>
         '''
-        args = args.split()
-        if len(args) == 0:
-            print("* Class name is missing *")
-        elif args[0] not in HBNBCommand.__classes:
-            print("* Class doesn't exist *")
+
+        if cr == "" or cr is None:
+            print("**class name missing**")
+        elif cr not in models.storage.classes():
+            print("**class doesn't exist **")
         else:
-            if args[0] == "BaseModel":
-                new_creation = BaseModel()
-            elif args[0] == "User":
-                new_creation = User()
+            new = models.storage.classes()[cr]()
+            new.save()
+            print(new.id)
 
     def do_show(self, args):
         '''It Prints the string representation of a
