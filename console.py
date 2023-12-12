@@ -33,9 +33,9 @@ class HBNBCommand(cmd.Cmd):
         '''
 
         if cr == "" or cr is None:
-            print("**class name missing**")
+            print("** class name missing **")
         elif cr not in models.storage.classes():
-            print("**class doesn't exist **")
+            print("** class doesn't exist **")
         else:
             new = models.storage.classes()[cr]()
             new.save()
@@ -48,18 +48,18 @@ class HBNBCommand(cmd.Cmd):
         '''
         strings = args.split()
         if len(strings) == 0:
-            print("* Class name is missing *")
+            print("** class name missing **")
         elif strings[0] not in HBNBCommand.__classes:
-            print("* Class doesn't exist *")
+            print("** class doesn't exist **")
         elif len(strings) == 1:
-            print("* Instance id is missing *")
+            print("** instance id missing **")
         else:
             obj = models.storage.all()
             key_value = strings[0] + '.' + strings[1]
             if key_value in obj:
                 print(obj[key_value])
             else:
-                print("* No instance was found *")
+                print("** no instance found **")
 
     def do_destroy(self, args):
         '''Deletes an instance
@@ -69,18 +69,18 @@ class HBNBCommand(cmd.Cmd):
         objects = models.storage.all()
 
         if len(args) == 0:
-            print('* Class name is missing *')
+            print('** class name missing **')
         elif args[0] not in HBNBCommand.__classes:
-            print("* class doesn't exist *")
+            print("** class doesn't exist **")
         elif len(args) == 1:
-            print('* Instance id is missing *')
+            print('** instance id  missing **')
         else:
             key_find = args[0] + '.' + args[1]
             if key_find in objects.keys():
                 objects.pop(key_find, None)
                 models.storage.save()
             else:
-                print('* No instance was found *')
+                print('** no instance found **')
 
     def do_all(self, args):
         '''Prints a string representation of all instances
@@ -95,7 +95,7 @@ class HBNBCommand(cmd.Cmd):
                 new_list.append(obj._str_())
             print(new_list)
         elif args[0] not in HBNBCommand.__classes:
-            print("* Class doesn't exist *")
+            print("** class doesn't exist **")
         else:
             for obj in objects.values():
                 if obj._class.name_ == args[0]:
@@ -110,21 +110,21 @@ class HBNBCommand(cmd.Cmd):
         args = args.split(" ")
 
         if len(args) == 0:
-            print("* Class name is missing *")
+            print("** class name missing **")
         elif args[0] not in HBNBCommand.__classes:
-            print("* Class doesn't exist *")
+            print("** class doesn't exist **")
         elif len(args) == 1:
-            print("* Instance id is missing *")
+            print("** instance id missing **")
         elif len(args) == 2:
-            print("* Attribute name is missing *")
+            print("** attribute name missing **")
         elif len(args) == 3:
-            print("* Value is missing *")
+            print("** value missing **")
         else:
             key_find = args[0] + '.' + args[1]
             obj = objects.get(key_find, None)
 
             if not obj:
-                print("* No instance was found *")
+                print("** no instance found **")
                 return
 
             setattr(obj, args[2], args[3].lstrip('"').rstrip('"'))
@@ -133,7 +133,7 @@ class HBNBCommand(cmd.Cmd):
     def check_class_name(self, name=""):
         """Check if stdin user typed class name and id."""
         if len(name) == 0:
-            print("* Class name is missing *")
+            print("** class name missing **")
             return False
         else:
             return True
@@ -141,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
     def check_class_id(self, name=""):
         """Checks class id"""
         if len(name.split(' ')) == 1:
-            print("* Instance id is missing *")
+            print("** instance id missing **")
             return False
         else:
             return True
@@ -155,7 +155,7 @@ class HBNBCommand(cmd.Cmd):
                     key = args[0] + '.' + args[1]
                     return key
                 else:
-                    print("* Class doesn't exist *")
+                    print("** class doesn't exist **")
                     return None
 
     def do_quit(self, args):
